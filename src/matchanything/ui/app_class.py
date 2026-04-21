@@ -416,11 +416,6 @@ class ImageMatchingApp:
             share=False,
         )
 
-
-def create_ui_app(config: str | Path | None = None) -> gr.Blocks:
-    app = ImageMatchingApp(config=config or get_default_config_dir())
-    return app.app
-
     def ui_change_imagebox(self, choice):
         """
         Updates the image box with the given choice.
@@ -571,6 +566,11 @@ def create_ui_app(config: str | Path | None = None) -> gr.Blocks:
                 # height=1000,
             )
             return tab
+
+
+def create_ui_app(config: str | Path | None = None) -> gr.Blocks:
+    app = ImageMatchingApp(config=config or get_default_config_dir())
+    return app.app
 
 
 class AppBaseUI:
