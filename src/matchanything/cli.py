@@ -38,6 +38,7 @@ def build_parser() -> argparse.ArgumentParser:
     ui_parser.add_argument("--config", default=str(get_default_config_dir()))
     ui_parser.add_argument("--server-name", default="0.0.0.0")
     ui_parser.add_argument("--server-port", type=int, default=7860)
+    ui_parser.add_argument("--share", action="store_true", help="Create a public Gradio share link")
     ui_parser.add_argument("--models-dir")
     ui_parser.set_defaults(func=run_ui)
 
@@ -185,6 +186,7 @@ def run_ui(args: argparse.Namespace) -> int:
     app = ImageMatchingApp(
         server_name=args.server_name,
         server_port=args.server_port,
+        share=args.share,
         config=args.config,
     )
     app.run()

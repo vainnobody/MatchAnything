@@ -52,9 +52,10 @@ CSS = """
 
 
 class ImageMatchingApp:
-    def __init__(self, server_name="0.0.0.0", server_port=7860, **kwargs):
+    def __init__(self, server_name="0.0.0.0", server_port=7860, share: bool = False, **kwargs):
         self.server_name = server_name
         self.server_port = server_port
+        self.share = share
         self.config_path = kwargs.get("config", get_default_config_dir())
         self.cfg = load_config(self.config_path)
         self.matcher_zoo = get_matcher_zoo(self.cfg["matcher_zoo"])
@@ -410,11 +411,20 @@ class ImageMatchingApp:
             #     sfm_ui.call_empty()
 
     def run(self):
-        self.app.queue().launch(
-            server_name=self.server_name,
-            server_port=self.server_port,
-            share=False,
-        )
+        queued_app = self.app.queue()
+        launch_kwargs = {
+            "server_name": self.server_name,
+            "server_port": self.server_port,
+            "share": self.share,
+        }
+        try:
+            queued_app.launch(**launch_kwargs)
+        except ValueError as exc:
+            error_text = str(exc)
+            if self.share or "localhost is not accessible" not in error_text:
+                raise
+            print("localhost is not accessible; retrying with share=True")
+            queued_app.launch(**{**launch_kwargs, "share": True})
 
     def ui_change_imagebox(self, choice):
         """
