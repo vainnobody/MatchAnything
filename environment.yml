@@ -1,0 +1,14 @@
+name: matchanything
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch-cuda=11.7
+  - pytorch=2.2.2
+  - torchvision=0.17.2
+  - pip
+  - pip:
+      - -r requirements.txt

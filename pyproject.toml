@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "matchanything"
+version = "0.1.0"
+description = "Lightweight local runtime for MatchAnything image matching"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [
+    {name = "MatchAnything authors"},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+
+[project.urls]
+Repository = "https://github.com/zju3dv/MatchAnything"
+
+[project.optional-dependencies]
+dev = ["black", "flake8", "isort", "pytest"]
+
+[project.scripts]
+matchanything = "matchanything.cli:main"
+matchanything-ui = "matchanything.cli:main_ui"
+matchanything-api = "matchanything.cli:main_api"
+matchanything-setup = "matchanything.cli:main_setup"
+matchanything-doctor = "matchanything.cli:main_doctor"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["matchanything*", "imcui*"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+xfail_strict = true
+testpaths = ["tests"]

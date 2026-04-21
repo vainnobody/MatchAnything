@@ -1,0 +1,18 @@
+matcher_zoo:
+  matchanything_eloftr:
+    matcher: matchanything_eloftr
+    dense: true
+    enable: true
+    info:
+      name: Efficient LoFTR
+      source: "CVPR 2024"
+      display: true
+
+  matchanything_roma:
+    matcher: matchanything_roma
+    dense: true
+    enable: true
+    info:
+      name: ROMA
+      source: "CVPR 2024"
+      display: true

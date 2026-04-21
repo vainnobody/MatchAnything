@@ -1,0 +1,2 @@
+recursive-include src/matchanything/datasets *.jpg *.jpeg *.png *.JPG *.PNG
+recursive-include src/matchanything/third_party *.py *.yaml *.yml *.cfg *.txt *.md *.json *.ckpt
